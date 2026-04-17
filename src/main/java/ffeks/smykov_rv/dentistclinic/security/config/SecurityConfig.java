@@ -15,7 +15,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -24,14 +23,14 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
-import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.util.List;
 import java.util.UUID;
 
 @Configuration
@@ -46,23 +45,31 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain springSecurity(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        http
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/v1/accounts/register").permitAll()
                         .requestMatchers("/api/v1/authentification/access_token").permitAll()
+                        .requestMatchers("/api/v1/accounts/get_user_info").authenticated()
                         .requestMatchers("/error").permitAll()
-                        .requestMatchers("/api/v1/accounts/home").permitAll()
+//                        .requestMatchers("/api/v1/accounts/home").permitAll()
                         .requestMatchers("/api/v1/reservation/basic-auth").authenticated()
-                        .requestMatchers("/api/v1/reservation/user-auth").hasRole("USER")
-//                        .requestMatchers("/api/v1/reservation/make_reservation").hasRole("USER")
-                        .requestMatchers("/api/v1/reservation/make_reservation").permitAll()
-                        .requestMatchers("/api/v1/reservation/all_reservations").permitAll()
+                        .requestMatchers("/api/v1/reservation/make_reservation").authenticated()
+                        .requestMatchers("/api/v1/reservation/get_reservation_for_user").authenticated()
+                        .requestMatchers("/api/v1/reservation/cancel_reservation/*").authenticated()
                         .requestMatchers("/api/v1/reservation/get_all_locations").permitAll()
-                        .requestMatchers("/api/v1/reservation/admin-auth").hasRole("ADMIN")
 //                        .requestMatchers("/api/v1/reservation/admin-auth").hasAnyRole("ADMIN", "USER")
+//                        .requestMatchers("/api/v1/reservation/make_reservation").permitAll()
+                        .requestMatchers("/api/v1/reservation/all_reservations").permitAll()
+                        .requestMatchers("/api/v1/staff/get_all_reservations_for_location").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/staff/get_all_reservations_for_doctor").hasRole("DOCTOR")
+                        .requestMatchers("/api/v1/staff/accept_reservation/*").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/staff/cancel_reservation/*").hasRole("ADMIN")
+
                         .anyRequest().authenticated()
 
                 ).httpBasic(Customizer.withDefaults())
@@ -123,4 +130,16 @@ public class SecurityConfig {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 }

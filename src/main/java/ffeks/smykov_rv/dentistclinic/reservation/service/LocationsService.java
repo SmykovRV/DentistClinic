@@ -1,6 +1,5 @@
 package ffeks.smykov_rv.dentistclinic.reservation.service;
 
-import ffeks.smykov_rv.dentistclinic.reservation.dto.mapping.LocationDto;
 import ffeks.smykov_rv.dentistclinic.reservation.model.Doctor;
 import ffeks.smykov_rv.dentistclinic.reservation.model.Location;
 

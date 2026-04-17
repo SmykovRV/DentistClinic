@@ -5,6 +5,8 @@ import ffeks.smykov_rv.dentistclinic.reservation.repository.AdminRepository;
 import ffeks.smykov_rv.dentistclinic.reservation.service.AdminService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -22,5 +24,15 @@ public class AdminServiceImpl implements AdminService {
         else{
             throw new RuntimeException("Administrator not found");
         }
+    }
+
+    @Override
+    public List<Administrator> findAll() {
+        return adminRepository.findAll();
+    }
+
+    @Override
+    public Administrator findAdministratorByPhoneNumber(String phoneNumber) {
+        return adminRepository.getAdministratorByUserAccountPhoneNumber(phoneNumber);
     }
 }

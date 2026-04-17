@@ -13,6 +13,8 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @Entity
 @Table(schema = "reservations", name = "reservation")
+@Setter
+@Getter
 public class Reservation {
 
     @Id
@@ -40,7 +42,7 @@ public class Reservation {
     private Doctor doctor;
 
     @ManyToOne()
-    @JoinColumn(name = "user_account_id",  nullable = false)
+    @JoinColumn(name = "user_account_id")
     private UserAccount userAccount;
 
     @Column(name = "is_accepted",  nullable = false)

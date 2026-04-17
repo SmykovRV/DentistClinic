@@ -21,8 +21,8 @@ create table identity.user_accounts
 --comment insert default values into identity.user_accounts
 
 INSERT INTO identity.user_accounts (id, password, first_name, last_name, phone_number)
-VALUES (1,  '{bcrypt}$2a$10$SkBejdz2WzUUBQei3ACS9.z8yhjyim0c6jUfRGj4tcWzbHjYxe/7q', 'AAA', 'aaa', '1'),
-       (2,  '{bcrypt}$2a$10$SkBejdz2WzUUBQei3ACS9.z8yhjyim0c6jUfRGj4tcWzbHjYxe/7q', 'DDD', 'ddd', '2'),
+VALUES (1,  '{bcrypt}$2a$10$SkBejdz2WzUUBQei3ACS9.z8yhjyim0c6jUfRGj4tcWzbHjYxe/7q', 'Анастасія', 'Глибко', '1'),
+       (2,  '{bcrypt}$2a$10$SkBejdz2WzUUBQei3ACS9.z8yhjyim0c6jUfRGj4tcWzbHjYxe/7q', 'Василій', 'Симонько', '2'),
        (3,  '{bcrypt}$2a$10$SkBejdz2WzUUBQei3ACS9.z8yhjyim0c6jUfRGj4tcWzbHjYxe/7q', 'UUU', 'uuu', '3');
 
 --rollback DELETE FROM identity.user_accounts WHERE id IN (1, 2, 3);

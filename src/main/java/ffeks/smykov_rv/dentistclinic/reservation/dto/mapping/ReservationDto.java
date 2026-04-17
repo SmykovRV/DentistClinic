@@ -1,5 +1,6 @@
 package ffeks.smykov_rv.dentistclinic.reservation.dto.mapping;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +21,9 @@ public class ReservationDto {
     LocationDto location;
     DoctorDto doctor;
     UserAccountDto userAccountDto;
+
+    @JsonProperty("isAccepted")
     boolean isAccepted;
+    @JsonProperty("isCancelled")
     boolean isCancelled;
 }

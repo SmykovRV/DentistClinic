@@ -1,6 +1,5 @@
 package ffeks.smykov_rv.dentistclinic.reservation.dto.mapping;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +16,9 @@ public class LocationDto {
     String locationAddress;
     LocalTime workTimeStart;
     LocalTime workTimeEnd;
+    String city;
+    String district;
+    String phoneNumber;
     Set<DoctorDto> doctors = new HashSet<>();
     Set<AdministratorDto> administrators = new HashSet<>();
 }

@@ -3,7 +3,6 @@ package ffeks.smykov_rv.dentistclinic.security.service.impl;
 import ffeks.smykov_rv.dentistclinic.security.mapper.UserAccountToUserMapper;
 import ffeks.smykov_rv.dentistclinic.security.service.UserAccountService;
 import jakarta.transaction.Transactional;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

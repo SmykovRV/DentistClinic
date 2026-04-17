@@ -15,4 +15,8 @@ public interface UserAccountService {
 
     boolean isExistById(Long id);
 
+    Boolean isExistByPhone(String phone);
+
+    Optional<UserAccount> getUserAccountDtoByToken();
+
 }

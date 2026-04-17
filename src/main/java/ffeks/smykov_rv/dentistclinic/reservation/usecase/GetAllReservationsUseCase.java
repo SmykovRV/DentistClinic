@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface GetAllReservationsUseCase {
     List<ReservationDto> getAllReservations();
+    List<ReservationDto> getAllReservationsForLocation();
+    List<ReservationDto> getAllReservationsForDoctor();
 }

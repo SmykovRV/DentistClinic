@@ -3,7 +3,6 @@ package ffeks.smykov_rv.dentistclinic.reservation.dto;
 import ffeks.smykov_rv.dentistclinic.reservation.dto.mapping.LocationDto;
 import ffeks.smykov_rv.dentistclinic.reservation.model.Location;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring", uses = {DoctorMapping.class, AdministratorMapping.class})
 public interface LocationMapping {

@@ -1,6 +1,5 @@
 package ffeks.smykov_rv.dentistclinic.security.service.impl;
 
-import ffeks.smykov_rv.dentistclinic.security.model.UserAccount;
 import ffeks.smykov_rv.dentistclinic.security.model.UserRole;
 import ffeks.smykov_rv.dentistclinic.security.repository.UserRoleRepository;
 import ffeks.smykov_rv.dentistclinic.security.service.UserRoleService;

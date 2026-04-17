@@ -5,14 +5,15 @@ import ffeks.smykov_rv.dentistclinic.reservation.dto.mapping.LocationDto;
 import ffeks.smykov_rv.dentistclinic.reservation.model.Location;
 import ffeks.smykov_rv.dentistclinic.reservation.service.LocationsService;
 import ffeks.smykov_rv.dentistclinic.reservation.usecase.GetAllLocationsUseCase;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 @Slf4j
+@Transactional
 public class GetAllLocationsFacade implements GetAllLocationsUseCase {
     private final LocationsService locationsService;
     private final LocationMapping locationMapping;

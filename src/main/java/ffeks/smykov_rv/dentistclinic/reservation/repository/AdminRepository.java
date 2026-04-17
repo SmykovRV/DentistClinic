@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface AdminRepository extends JpaRepository<Administrator, Integer> {
     Optional<Administrator> findAdministratorById(Long id);
+
+    Administrator getAdministratorByUserAccountPhoneNumber(String userAccountPhoneNumber);
 }

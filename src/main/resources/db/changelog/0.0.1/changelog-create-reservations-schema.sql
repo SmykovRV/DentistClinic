@@ -12,7 +12,10 @@ create schema if not exists reservations;
 --comment create table reservations.locations
 create table reservations.locations (
                                         id bigserial primary key,
-                                        location_address varchar(255),
+                                        city varchar(50),
+                                        district varchar(50),
+                                        location_address varchar(150),
+                                        phone_number varchar(30),
                                         work_time_start time,
                                         work_time_end time
 );
@@ -25,7 +28,7 @@ create table reservations.locations (
 --comment create table reservations.doctor
 create table reservations.doctor (
                                      id bigserial primary key,
-                                     user_account_id bigint not null,
+                                     user_account_id bigint,
                                      speciality varchar(120) not null,
                                      experience integer not null,
                                      location_id bigint not null                    -- ← OneToMany з Location
@@ -132,15 +135,21 @@ alter table reservations.reservation
 -- =============================================
 --changeset SmykovRoman:insert-default-values-locations
 --comment insert default location
-INSERT INTO reservations.locations (id, location_address, work_time_start, work_time_end)
-SELECT 1, 'Вул. Володимира Мономаха 15', '08:00', '18:00'
+INSERT INTO reservations.locations (id, location_address, work_time_start, work_time_end, phone_number, city, district)
+SELECT 1,
+       'Вул. Володимира Мономаха 15',
+       '08:00',
+       '18:00',
+       '+38 093 23 23',
+       'Дніпро',
+       'ж\м Тополь 1'
     WHERE NOT EXISTS (SELECT 1 FROM reservations.locations WHERE id = 1);
 --rollback DELETE FROM reservations.locations WHERE id = 1;
 
 --changeset SmykovRoman:insert-default-values-doctor
 --comment insert default doctor
 INSERT INTO reservations.doctor (id, user_account_id, speciality, experience, location_id)
-VALUES (1, 2, 'Dentist', 5, 1)
+VALUES (1, 2, 'Дантист', 5, 1)
     ON CONFLICT (id) DO NOTHING;
 --rollback DELETE FROM reservations.doctor WHERE id = 1;
 

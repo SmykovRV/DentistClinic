@@ -1,11 +1,13 @@
 package ffeks.smykov_rv.dentistclinic.reservation.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,6 +24,15 @@ public class Location {
 
     @Column(name = "location_address")
     private String locationAddress;
+
+    @Column(name = "phone_number")
+    private String phoneNumber;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "district")
+    private String district;
 
     @Column(name = "work_time_start")
     private LocalTime workTimeStart;
